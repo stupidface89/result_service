@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "result_service"
+version = "0.1.0"
+description = "Result from service layer"
+authors = [
+    {name = "Dmitriy Bikov", email = "stupid_face@mail.ru"},
+]
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    # "requests",
+    # "numpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/stupidface90/result_service"
