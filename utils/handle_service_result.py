@@ -1,3 +1,5 @@
+import json
+
 from fastapi.responses import JSONResponse
 from fastapi import status
 
@@ -6,6 +8,9 @@ from ..core import Result
 
 
 def handle_service_result(service_result: Result) -> JSONResponse:
+    """
+    Return Fastapi JSONResponse from Result
+    """
     if not hasattr(service_result, 'is_success'):
         raise ValueError('Не удалось распарсить Service Result сущность - нет аттрибута is_success.')
 
@@ -13,11 +18,11 @@ def handle_service_result(service_result: Result) -> JSONResponse:
         content = ApiResponseSchema(
             success=True,
             data=service_result.data
-        ).model_dump()
+        ).json()
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
-            content=content
+            content=json.loads(content)
         )
 
     else:
@@ -29,9 +34,9 @@ def handle_service_result(service_result: Result) -> JSONResponse:
                 "code": service_result.error.name,
                 "message": service_result.error_message
             }
-        ).model_dump()
+        ).json()
 
         return JSONResponse(
             status_code=http_status,
-            content=content
+            content=json.loads(content)
         )
